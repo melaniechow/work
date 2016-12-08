@@ -97,20 +97,32 @@ public class SuperArray
 	_lastPos+=1;
 	
     }
-    /*
+
     //removes the item at index
     //shifts elements left to fill in newly-empted slot
     public void remove( int index ) 
     {
-	/* YOUR IMPLEMENTATION HERE
+	
+	int[]b=new int[_size-1]; // length of existing array
+	for (int i=0; i<b.length; i++){
+	    if (i<index) {
+		b[i]=_data[i];
+	    }
+	    else{
+		b[i]=_data[i+1];
+	    }
+	}
+	_data=b;
+	_size-=1;
+	_lastPos-=1;
     }
-
+    /*
     //return number of meaningful items in _data
     public int size() 
     {
 	/* YOUR IMPLEMENTATION HERE
     }
-    `*/
+    */
     //main method for testing
     public static void main( String[] args ) 
     {
@@ -139,14 +151,14 @@ public class SuperArray
 
 	System.out.println("Printing populated SuperArray mayfield...");
 	System.out.println(mayfield);
-	 	/*===========================================
+
 	mayfield.remove(3);
 	System.out.println("Printing SuperArray mayfield post-remove...");
 	System.out.println(mayfield);
 	mayfield.remove(3);
 	System.out.println("Printing SuperArray mayfield post-remove...");
 	System.out.println(mayfield);
-	/*===========================================*/
+
 	mayfield.add(3,99);
 	System.out.println("Printing SuperArray mayfield post-insert...");
 	System.out.println(mayfield);
@@ -156,7 +168,7 @@ public class SuperArray
 	mayfield.add(1,77);
 	System.out.println("Printing SuperArray mayfield post-insert...");
 	System.out.println(mayfield);
-	/* ===========================================*/
+
     }//end main()
 
 }//end class SuperArray
