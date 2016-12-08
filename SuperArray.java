@@ -1,12 +1,12 @@
 /*
-Melanie Chow
+Team EM- Melanie Chow and Eric Li
 APCS pd.4
-HW41 -- Array of Steel
+HW42 -- Array of Grade 316
 2016-12-08
 */
 
 /*==================================================
-  class SuperArray version 1.0
+  class SuperArray version 2.0
   Wrapper class for array. Facilitates resizing, 
   expansion, and read/write capability on elements.
   ==================================================*/
@@ -31,11 +31,14 @@ public class SuperArray
     //toString() -> "[1,2,3]"
     public String toString() 
     { 
+	if (_size==0){
+	    return "[]";
+	}
 	String retStr="[";
-	for (int index=0; index<_size ; index+=1){
+	for (int index=0; index<_size-1 ; index+=1){
 	    retStr+=_data[index]+",";
 	}
-	return retStr+=_data[_data.length-1]+"]"; 
+	return retStr+=_data[_size-1]+"]"; 
     }
     
     //double capacity of this instance of SuperArray 
@@ -69,6 +72,8 @@ public class SuperArray
 	    this.expand();
 	}
         _data[_lastPos+1]=newVal;
+	_lastPos+=1;
+	_size+=1;
     }
 
     //inserts an item at index
@@ -76,34 +81,36 @@ public class SuperArray
     public void add( int index, int newVal ) 
     {
 	int[]b=new int[_data.length+1]; // length of existing array
-	for (int i=0; i<_lastpos; i++){
-	    if (i<index-1) {
+	for (int i=0; i<b.length; i++){
+	    if (i<index) {
 		b[i]=_data[i];
 	    }
-	    else if{
-		(i==index) b.add(newVal);
+	    else if (i==index){
+		b[i]=newVal;
 	    }
 	    else{
-		b[i]=_data[i+1];
+		b[i]=_data[i-1];
 	    }
 	}
-	_data=b;	
+	_data=b;
+	_size+=1;
+	_lastPos+=1;
 	
     }
-
+    /*
     //removes the item at index
     //shifts elements left to fill in newly-empted slot
     public void remove( int index ) 
     {
-	/* YOUR IMPLEMENTATION HERE */
+	/* YOUR IMPLEMENTATION HERE
     }
 
     //return number of meaningful items in _data
     public int size() 
     {
-	/* YOUR IMPLEMENTATION HERE */
+	/* YOUR IMPLEMENTATION HERE
     }
- 
+    `*/
     //main method for testing
     public static void main( String[] args ) 
     {
@@ -139,7 +146,7 @@ public class SuperArray
 	mayfield.remove(3);
 	System.out.println("Printing SuperArray mayfield post-remove...");
 	System.out.println(mayfield);
-
+	/*===========================================*/
 	mayfield.add(3,99);
 	System.out.println("Printing SuperArray mayfield post-insert...");
 	System.out.println(mayfield);
@@ -149,7 +156,7 @@ public class SuperArray
 	mayfield.add(1,77);
 	System.out.println("Printing SuperArray mayfield post-insert...");
 	System.out.println(mayfield);
-	  ===========================================*/
+	/* ===========================================*/
     }//end main()
 
 }//end class SuperArray
