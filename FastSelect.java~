@@ -1,0 +1,86 @@
+/*
+Melanie Chow
+APCS2 pd4
+HW14 -- So So Fast
+2017-03-08
+*/
+
+public class FastSelect{
+    public static void swap(int[] arr, int i, int j){
+	int first=arr[i];
+	int second=arr[j];
+	arr[i]=second;
+	arr[j]=first;
+    }
+
+    public static void printarray(int [] a){
+	String retStr="[";
+	for (int i=0; i<a.length; i++){
+	    retStr+=" "+a[i];
+	}
+	System.out.println( retStr+=" ]");
+    }
+
+    /*public static int partition(int[] arr, int left, int right, int pvtPos){
+	int pvtVal=arr[pvtPos];
+	swap(arr,pvtPos,right);
+	int storePos=left;
+	for (int i=left; i<right-1; i++){
+	    if (arr[i]<pvtVal){
+		swap (arr,storePos,i);
+		storePos+=1;
+	    }
+	}
+	swap(arr,right,storePos);
+	printarray(arr);
+	return storePos;
+	}*/
+    public static int partition(int[] arr, int start, int end, int smallest){
+	int v=arr[smallest];
+	swap(arr,smallest,end);
+	int s=start;
+	for (int i=start; i<end-1; i++){
+	    if (arr[i]<v){
+		swap (arr,s,i);
+		s+=1;
+	    }
+	}
+	swap(arr,end,s);
+	printarray(arr);
+	return s;
+    }
+
+    public static int ymin(int[] a, int y,int pvtPos){
+	if (y==0 || y>a.length || pvtPos>a.length){
+	    return -1;
+	}
+	int status=partition(a,0,a.length-1,pvtPos);
+	System.out.println(status);
+	if (status==y-1){
+	    return a[status];
+	}
+	if (status>y-1){
+	    return ymin(a,y,status-1);
+	}
+	if (status<y-1){
+	    return ymin(a,y,status+1);
+	}
+	return -1;
+    }
+
+    public static void main(String[] args){
+	int[] a=new int[] {5,4,17,9000,6};
+	System.out.println(ymin(a,1,2)); 
+	System.out.println(ymin(a,2,2));
+	System.out.println(ymin(a,3,2));
+	System.out.println(ymin(a,4,2));
+
+	int[] b=new int[] {2,6,8,9,1,0};
+	System.out.println(ymin(b,1,2));
+	System.out.println(ymin(b,2,2));
+	System.out.println(ymin(b,3,2));
+	System.out.println(ymin(b,4,2));
+	System.out.println(ymin(b,5,2));
+	partition(b,0,5,4);
+    }
+}
